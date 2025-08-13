@@ -1,25 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import ActCategories from "./thunkActions/ActCategories";
 
 interface ICategories {
-    record: { id: number, title: string }[],
-    loading: "idle" | "pending" | "succeeded" | "failed",
-    error: string | null
+    record: { id: number; name: string }[];
+    loading: "idle" | "pending" | "succeeded" | "failed";
+    error: string | null;
 }
 
-const initialState : ICategories = {
+const initialState: ICategories = {
     record: [],
     loading: "idle",
     error: null
-}
-
+};
 
 const categoriesSlice = createSlice({
     name: "categories",
     initialState,
-    reducers: {
-        
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(ActCategories.pending, (state) => {
+                state.loading = "pending";
+                state.error = null;
+            })
+            .addCase(ActCategories.fulfilled, (state, action) => {
+                state.loading = "succeeded";
+                state.record = action.payload;
+            })
+            .addCase(ActCategories.rejected, (state, action) => {
+                state.loading = "failed";
+                state.error = action.payload as string;
+            });
     }
-})
+});
 
-
-export default categoriesSlice.reducer
+export { ActCategories };
+export default categoriesSlice.reducer;
