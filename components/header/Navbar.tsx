@@ -1,0 +1,134 @@
+"use client";
+
+import { useState } from "react";
+import {
+  Search,
+  Globe,
+  Heart,
+  ShoppingCart,
+  Menu,
+  X,
+  User,
+} from "lucide-react";
+import LangUseParams from "@/translate/LangUseParams";
+import TranslateHook from "@/translate/TranslateHook";
+
+
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [favoriteCount] = useState(3);
+  const [cartCount] = useState(7);
+  const lang = LangUseParams() // Access dynamic [lang] parameter
+  const translate = TranslateHook(); // Access dynamic [lang] parameter
+
+  const navItems = [
+    { title: "Home", href: "/" },
+    { title: "Products", href: "/products" },
+    { title: "About", href: "/about" },
+    { title: "Contact", href: "/contact" },
+  ];
+
+  return (
+    <nav className="bg-black text-white sticky top-0 z-50" dir={lang === "ar" ? "rtl" : "ltr"}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+              <span className="text-black font-bold text-lg">L</span>
+            </div>
+            <span className="ml-2 text-xl font-bold hidden sm:block">Logo</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-8">
+              {navItems.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
+                >
+                  {item.title}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Search Bar (hidden on small screens) */}
+          <div className="hidden lg:block flex-1 max-w-md mx-8">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 rounded-md backgroundDarkGray text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              />
+            </div>
+          </div>
+
+          {/* Icons & Mobile Menu Button */}
+          <div className="flex items-center space-x-4 relative">
+            <Globe className="w-5 h-5 cursor-pointer" />
+
+            {/* Favorite Icon */}
+            <div className="relative cursor-pointer">
+              <Heart className="w-5 h-5" />
+              {favoriteCount > 0 && (
+                <span className="absolute -top-4 -right-3 backgroundGold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-extrabold">
+                  {favoriteCount}
+                </span>
+              )}
+            </div>
+
+            {/* Cart Icon */}
+            <div className="relative cursor-pointer">
+              <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-4 -right-3 backgroundGold  text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-extrabold">
+                  {cartCount}
+                </span>
+              )}
+            </div>
+
+            {/* User Icon */}
+            <User className="w-5 h-5 cursor-pointer" />
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-gray-900 px-4 pt-4 pb-6 space-y-2">
+          {navItems.map((item) => (
+            <a
+              key={item.title}
+              href={item.href}
+              className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium"
+            >
+              {item.title}
+            </a>
+          ))}
+          <div className="mt-4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
