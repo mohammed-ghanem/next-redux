@@ -5,11 +5,13 @@
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --mainColor: #9368F3;
+  --lightColor: #9368f3c7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,9 +28,15 @@ body {
 }
 
 
-.backgroundGold {
-  background: #ed9900;
+.backgroundDarkPurple {
+  background: #9368f33d;
 }
-.backgroundDarkGray {
-  background: #363636;
+.mainColor {
+  color: #9368F3;
+}
+.bkMainColor{
+  background: #9368F3;
+}
+.lightColor {
+  color: #9368f33d;
 }
