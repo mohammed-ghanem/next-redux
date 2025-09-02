@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { ActCategories } from "@/store/categories/categoriesSlice";
+import { ActCategories, categoriesCleanRecord } from "@/store/categories/categoriesSlice";
 import { useEffect } from "react";
 import Link from "next/link";
 // translate
@@ -11,7 +11,7 @@ import TranslateHook from "@/translate/TranslateHook";
 
 
 const Categories = () => {
-   const lang = LangUseParams() // Access dynamic [lang] parameter
+  const lang = LangUseParams() // Access dynamic [lang] parameter
   const translate = TranslateHook(); // Access dynamic [lang] parameter
 
   const dispatch = useAppDispatch();
@@ -21,6 +21,11 @@ const Categories = () => {
 
   useEffect(() => {
     dispatch(ActCategories());
+
+    return () => {
+      dispatch(categoriesCleanRecord());
+    };
+
   }, [dispatch]);
 
   const categoriesList =

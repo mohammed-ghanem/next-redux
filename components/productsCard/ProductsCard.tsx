@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { ActProducts } from "@/store/products/productsSlice";
+import { ActProducts, productCleanRecord } from "@/store/products/productsSlice";
 import Image from "next/image";
 import { useEffect } from "react";
 
@@ -14,6 +14,9 @@ const ProductsCard = () => {
   useEffect(() => {
     if (categoryId) {
       dispatch(ActProducts(Number(categoryId)));
+      return () => {
+        dispatch(productCleanRecord());
+      };
     }
   }, [dispatch, categoryId]);
 
@@ -25,21 +28,29 @@ const ProductsCard = () => {
     return <div>{error}</div>;
   }
 
-  if (record.length === 0) {
+  if (!record.length) {
     return <div>No products in this category</div>;
   }
 
+  const fetchRecordData = record.map((product) => (
+    <div
+      className="bg-white p-4 rounded-lg shadow-md"
+      key={product.id}>
+      <h2>{product.title}</h2>
+      <p>${product.price}</p>
+      {product.images?.[0] && (
+        <Image src={product.images[0]} alt={product.title} width="150" height="150" />
+      )}
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded mt-2 cursor-pointer">
+        Add to Cart
+      </button>
+    </div>
+  ))
+
   return (
-    <div>
-      {record.map((product) => (
-        <div key={product.id}>
-          <h2>{product.title}</h2>
-          <p>${product.price}</p>
-          {product.images?.[0] && (
-            <Image src={product.images[0]} alt={product.title} width="150" height="150" />
-          )}
-        </div>
-      ))}
+    <div className=" container mx-auto grid grid-cols-4 gap-4 mt-10">
+      {fetchRecordData}
     </div>
   );
 };
