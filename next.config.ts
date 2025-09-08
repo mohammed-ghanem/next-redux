@@ -2,7 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [ "https://placehold.co", "i.imgur.com" , "placeimg.com" , "placehold.co" , "julio.com" , "http2.mlstatic.com"], // add imgur domain here
+    domains: [
+      "https://placehold.co",
+      "i.imgur.com",
+      "placeimg.com",
+      "placehold.co",
+      "julio.com",
+      "http2.mlstatic.com",
+      "https://example.com",
+      "https://encrypted-tbn0.gstatic.com"
+    ], // add imgur domain here
   },
 };
 
