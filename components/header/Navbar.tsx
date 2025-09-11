@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   Search,
-  Heart,
   Menu,
   X,
   User,
@@ -11,10 +10,11 @@ import {
 import LangUseParams from "@/translate/LangUseParams";
 import GlobeBtn from "./GlobeBtn";
 import ShoppingCartIcon from "./ShopingCartIcon";
+import WishlistIcon from "./WishlistIcon";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [favoriteCount] = useState(3);
 
   // 👇 Get cart count from Redux
 
@@ -40,13 +40,13 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.title}
                   href={item.href}
                   className="text-[var(--lightColor)] hover:text-[var(--mainColor)]  font-bold px-3 py-2 text-sm  transition-colors duration-200"
                 >
                   {item.title}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -68,14 +68,7 @@ const Navbar = () => {
             <GlobeBtn />
 
             {/* Favorite Icon */}
-            <div className="relative cursor-pointer">
-              <Heart className="w-5 h-5" />
-              {favoriteCount > 0 && (
-                <span className="absolute -top-4 -right-3 bkMainColor text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-extrabold">
-                  {favoriteCount}
-                </span>
-              )}
-            </div>
+            <WishlistIcon />
 
             {/* Cart count icon*/}
             <ShoppingCartIcon />

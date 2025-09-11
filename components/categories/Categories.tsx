@@ -7,6 +7,7 @@ import Link from "next/link";
 // translate
 import LangUseParams from "@/translate/LangUseParams";
 import TranslateHook from "@/translate/TranslateHook";
+import Image from "next/image";
 
 
 
@@ -37,16 +38,16 @@ const Categories = () => {
       record.map((category) => (
         <div key={category.id}>
           <Link href={`/${lang}/products/${category.id}`}>
-            {category.name}
+            <Image src={category.image} alt={category.name} width="150" height="150" />
+            <h1>{category.name}</h1>
           </Link>
-
         </div>
       ))
     ) : (
       <div>No categories</div>
     );
 
-  return <div>{categoriesList}</div>;
+  return <div className="container mx-auto grid grid-cols-4 gap-4 mt-10">{categoriesList}</div>;
 };
 
 export default Categories;

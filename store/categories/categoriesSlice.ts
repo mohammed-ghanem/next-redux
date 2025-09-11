@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import ActCategories from "./thunkActions/ActCategories";
 
 interface ICategories {
-    record: { id: number; name: string }[];
+    record: { id: number; name: string ; image: string }[];
     loading: "idle" | "pending" | "succeeded" | "failed";
     error: string | null;
 }

@@ -10,7 +10,9 @@ const nextConfig: NextConfig = {
       "julio.com",
       "http2.mlstatic.com",
       "https://example.com",
-      "https://encrypted-tbn0.gstatic.com"
+      "https://encrypted-tbn0.gstatic.com",
+      "https://firebasestorage.googleapis.com",
+      "firebasestorage.googleapis.com"
     ], // add imgur domain here
   },
 };
