@@ -1,12 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import ActProducts from "./thunkActions/ActProducts";
+import type { IProduct } from "@/types/product";
 
-interface IProduct {
-  id: number;
-  title: string;
-  price: number;
-  images: string[];
-}
 
 interface IProductsState {
   record: IProduct[];
@@ -47,7 +42,6 @@ const productsSlice = createSlice({
       });
   }
 });
-
 
 export const { productCleanRecord } = productsSlice.actions;
 export { ActProducts };

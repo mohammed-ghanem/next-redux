@@ -5,11 +5,16 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { ActProducts, productCleanRecord } from "@/store/products/productsSlice";
 import Image from "next/image";
 import { useEffect } from "react";
+import type { IProduct } from "@/types/product";
+import { addToCart } from "@/store/cart/cartSlice";
 
 const ProductsCard = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const dispatch = useAppDispatch();
   const { loading, record, error } = useAppSelector((state) => state.products);
+
+
+
 
   useEffect(() => {
     if (categoryId) {
@@ -32,6 +37,11 @@ const ProductsCard = () => {
     return <div>No products in this category</div>;
   }
 
+  const handleAddToCart = (product: IProduct) => {
+    dispatch(addToCart(product));
+  }
+
+
   const fetchRecordData = record.map((product) => (
     <div
       className="bg-white p-4 rounded-lg shadow-md"
@@ -42,11 +52,14 @@ const ProductsCard = () => {
         <Image src={product.images[0]} alt={product.title} width="150" height="150" />
       )}
       <button
+        onClick={() => handleAddToCart(product as IProduct)}
         className="bg-blue-500 text-white px-4 py-2 rounded mt-2 cursor-pointer">
         Add to Cart
       </button>
     </div>
   ))
+
+
 
   return (
     <div className=" container mx-auto grid grid-cols-4 gap-4 mt-10">

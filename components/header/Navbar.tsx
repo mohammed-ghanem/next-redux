@@ -4,22 +4,21 @@ import { useState } from "react";
 import {
   Search,
   Heart,
-  ShoppingCart,
   Menu,
   X,
   User,
 } from "lucide-react";
 import LangUseParams from "@/translate/LangUseParams";
 import GlobeBtn from "./GlobeBtn";
-// import TranslateHook from "@/translate/TranslateHook";
-
+import ShoppingCartIcon from "./ShopingCartIcon";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [favoriteCount] = useState(3);
-  const [cartCount] = useState(7);
-  const lang = LangUseParams() // Access dynamic [lang] parameter
-  //  const translate = TranslateHook(); // Access dynamic [lang] parameter
+
+  // 👇 Get cart count from Redux
+
+  const lang = LangUseParams(); // Access dynamic [lang] parameter
 
   const navItems = [
     { title: "Home", href: "/" },
@@ -78,15 +77,8 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Cart Icon */}
-            <div className="relative cursor-pointer">
-              <ShoppingCart className="w-5 h-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-4 -right-3 bkMainColor  text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-extrabold">
-                  {cartCount}
-                </span>
-              )}
-            </div>
+            {/* Cart count icon*/}
+            <ShoppingCartIcon />
 
             {/* User Icon */}
             <User className="w-5 h-5 cursor-pointer" />
@@ -101,28 +93,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-gray-900 px-4 pt-4 pb-6 space-y-2">
-          {navItems.map((item) => (
-            <a
-              key={item.title}
-              href={item.href}
-              className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium"
-            >
-              {item.title}
-            </a>
-          ))}
-          <div className="mt-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-          </div>
-        </div>
-      )}
     </nav>
   );
 };
